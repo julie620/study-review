@@ -1,0 +1,13 @@
+T:Apple
+D:1
+T:Banana
+D:2
+T:Abalone
+D:3
+T:Cabbage
+D:4
+T:Carrot
+D:5
+T:Dinner
+D:6
+T:
