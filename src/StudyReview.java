@@ -10,7 +10,7 @@ public class StudyReview {
     public void menuOpt() {
         System.out.println("Welcome to your Study Reviewer!");
         System.out.println("Please Choose One of the Following Options:");
-        System.out.println("1) Browse Subjects");
+        System.out.println("1) Browse Subjects to Study");
         System.out.println("2) Add Subject");
         System.out.println("3) Remove Subject");
         System.out.println("4) Exit");
@@ -56,7 +56,6 @@ public class StudyReview {
     public Boolean checkAnswer(String answer, String term, Subject currentSubject) {
         Boolean validAnswer = false;
         String definition = currentSubject.get(term);
-        //System.out.println(definition);
         if (answer.equals(definition)) {
             validAnswer = true;
             return validAnswer;
@@ -86,16 +85,11 @@ public class StudyReview {
                 if (type == 'T') {
                     String regex = "T:";
                     term = data.replaceAll(regex, "");
-                    //System.out.println(term);
-                    //System.out.println("Got term ");
                 } else {
                     String regex = "D:";
                     definiton = data.replaceAll(regex, "");
                     newSubject.add(term, definiton);
-                    //System.out.println(definiton);
-                    //System.out.println("Got topic");
                 }
-                //System.out.println("next line");
             }
             myReader.close();
         } catch (FileNotFoundException e) {

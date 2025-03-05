@@ -10,4 +10,13 @@ T:Carrot
 D:5
 T:Dinner
 D:6
-T:
+T:Eagle
+D:7
+T:Friend
+D:8
+T:Gram
+D:9
+T:Heat
+D:10
+T:Ion
+D:11

@@ -1,18 +1,13 @@
-## Getting Started
+## Lab 6 - Hashing
 
-Welcome to the VS Code Java world. Here is a guideline to help you get started to write Java code in Visual Studio Code.
+This program allows you to review study material (terms and definitions) of different subjects
 
-## Folder Structure
+## Program Description
 
-The workspace contains two folders by default, where:
+The program stores different study topics in a hash table designated for a particular subject. It can then run through all the stored terms and check if your answers are correct compared to the defintions that are stored in the table.
 
-- `src`: the folder to maintain sources
-- `lib`: the folder to maintain dependencies
+## IMPORTANT NOTES
+* 
 
-Meanwhile, the compiled output files will be generated in the `bin` folder by default.
-
-> If you want to customize the folder structure, open `.vscode/settings.json` and update the related settings there.
-
-## Dependency Management
-
-The `JAVA PROJECTS` view allows you to manage your dependencies. More details can be found [here](https://github.com/microsoft/vscode-java-dependency#manage-dependencies).
+Juliana Serrano\
+03/07/2025

@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class Subject {
 
@@ -20,17 +21,22 @@ public class Subject {
         return subjectName;
     }
 
+    public final int hashCode(String term) {
+        return Objects.hashCode(term);
+    }
+
     private int getBucketIndex(String term) {
-        char firstLetter = term.toLowerCase().charAt(0);
-        int key = (int) firstLetter;
-        int index = key % arraySize;
+        int hashCode = hashCode(term);
+        int index = hashCode % arraySize;
+        index = index < 0 ? index * -1: index;
         return index;
     }
 
     public void add(String term, String definition) {
         int bucketIndex = getBucketIndex(term);
+        int hashCode = hashCode(term);
         Topic head = reviewItems[bucketIndex];
-        Topic newNode = new Topic(term, definition);
+        Topic newNode = new Topic(term, definition, hashCode);
 
         if (head != null) {
             while (head.next != null) {
@@ -40,31 +46,36 @@ public class Subject {
                 }
                 head = head.next;
             }
-            size++;
             head.next = newNode;
             termList.add(head.next.getTerm());
         } else {
-            newNode.toString();
-            size++;
             reviewItems[bucketIndex] = newNode;
             termList.add(newNode.getTerm());
         }
 
-        if (size / arraySize >= 0.75) {
-            Topic[] temp = reviewItems;
+        size++;
+
+        if ((1.0 * size) / arraySize >= 0.75) {
+            rehash();
+        }
+    }
+
+    public void rehash() {
+        Topic[] temp = reviewItems;
             arraySize = arraySize * 2;
             reviewItems = new Topic[arraySize];
+            size = 0;
+            termList.clear();
             Topic current;
             for (int i = 0; i < temp.length; i++) {
                 if (temp[i] != null) {
                     current = temp[i];
-                    while (current.next != null) {
+                    while (current != null) {
                         add(current.getTerm(), current.getDefinition());
                         current = current.next;
                     }
                 } 
             }
-        }
     }
 
     public void remove(String term) {
@@ -91,13 +102,11 @@ public class Subject {
 
     public String get(String term) {
         int bucketIndex = getBucketIndex(term);
-        System.out.println(bucketIndex);
         Topic current = reviewItems[bucketIndex];
         Topic head = null;
 
         while(current != null) {
             head = current;
-            System.out.println(head.getTerm());
             current = current.next;
             if (head.getTerm() == term) {
                 return head.getDefinition();
