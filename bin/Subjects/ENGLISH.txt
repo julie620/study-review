@@ -1,14 +1,10 @@
 T:Apple
-D:1
+D:A red fruit
 T:Banana
-D:2
-T:Abalone
-D:3
+D:A yellow fruit
 T:Cabbage
-D:4
+D:A green-leafy vegetable
 T:Carrot
-D:5
-T:Dinner
-D:6
+D:An orange root vegetable
 T:Eagle
-D:7
+D:A large bird of prey

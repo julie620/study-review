@@ -1,3 +1,10 @@
+/*
+ * Author: Juliana Serrano
+ * Last Modified: 03/07/2025
+ * Lab 6: Hashing
+ * The StudyReview Class provides methods to study and modify different subjects and topics
+*/
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -14,7 +21,7 @@ public class StudyReview {
     public void run() {
         letterArt.introArt();
         System.out.println("Welcome to your Study Reviewer");
-        System.out.println("With this program you can review topics from differnt subjects.");
+        System.out.println("With this program you can review topics from different subjects.");
         System.out.println("Have Fun Studying!");
         addAtStart();
         Boolean studying = true;
@@ -24,6 +31,7 @@ public class StudyReview {
         while(studying);
     }
 
+    //displays menu options
     public Boolean menuOpt() {
         letterArt.sectionLines();
         System.out.println("Please Choose One of the Following Options:");
@@ -44,6 +52,7 @@ public class StudyReview {
         return true;
     }
 
+    // displays available subjects and study/modify options
     public void subjectOpt() {
         letterArt.sectionLines();
         System.out.println("The available subjects are: ");
@@ -56,8 +65,8 @@ public class StudyReview {
         int subjectChoice = subjectChoice();
         letterArt.sectionLines();
         System.out.println("What would you like to do?");
-        System.out.println("1) Study a Subject");
-        System.out.println("2) Modify a Subject");
+        System.out.println("1) Study Subject");
+        System.out.println("2) Modify Subject");
         int choice = input.nextInt();
         input.nextLine();
         switch (choice) {
@@ -73,7 +82,9 @@ public class StudyReview {
         }
     }
 
+    // displays modification options add/remove
     public void modOpt(int subjectChoice) {
+        letterArt.sectionLines();
         Subject currentSubject = subjectList.get(subjectChoice);
         System.out.println("Please Choose One of the Following Options:");
         System.out.println("1) Add Topic");
@@ -94,11 +105,21 @@ public class StudyReview {
     }
 
     public void addTopic(Subject currentSubject) {
-        System.out.println("Enter Term: ");
-        String term = input.nextLine();
-        System.out.println("Enter Defninition: ");
-        String defintion = input.nextLine();
-        currentSubject.add(term, defintion);
+        String term;
+        String defintion;
+        if (currentSubject.getSubjectName().equals("MATH")) {
+            System.out.println("Enter Problem: ");
+            term = input.nextLine();
+            System.out.println("Enter Answer: ");
+            defintion = input.nextLine();
+        } else {
+            System.out.println("Enter Term: ");
+            term = input.nextLine();
+            System.out.println("Enter Defninition: ");
+            defintion = input.nextLine();
+        }
+        currentSubject.add(term, defintion); // adds new topic with usier input for term/definition
+        //adds new topic to subejct file
         String fileName = "src\\Subjects\\" + currentSubject.getSubjectName() + ".txt";
         String newTopic = "\nT:" + term + "\nD:" + defintion;
         try ( FileWriter fw = new FileWriter(fileName, true)){
@@ -112,6 +133,7 @@ public class StudyReview {
 
     public void removeTopic(Subject currentSubject) {
         String term = termChoice(currentSubject);
+        //creates temporary file to copy all topics except the one to be removed
         String fileName = "src\\Subjects\\" + currentSubject.getSubjectName() + ".txt";
         File subjectFile = new File(fileName);
         String tempPath = "src\\Subjects\\temp.txt";
@@ -138,27 +160,39 @@ public class StudyReview {
             e.printStackTrace();
             }
         }
-        subjectFile.delete();
+        subjectFile.delete(); // deletes old subject folder
         File saveFile = new File (fileName);
-        tempFile.renameTo(saveFile);
-        currentSubject.remove(term);
+        tempFile.renameTo(saveFile); // saves new modified subejct folder
+        currentSubject.remove(term); // removes specified topic
         System.out.println("Topic Successfully Removed");
     }
 
+    // returns the term that the user would like to remove
     public String termChoice(Subject currentSubject) {
+        letterArt.sectionLines();
         ArrayList<String> termList = currentSubject.getTermList();
-        System.out.println("The available terms are: ");
+        if (currentSubject.getSubjectName().equals("MATH")) {
+            System.out.println("The available problems are: ");
+        } else {
+            System.out.println("The available terms are: ");
+        }
         for (int i = 0; i < termList.size(); i++) {
             int termNum = i + 1;
             System.out.println(termNum + ") " + termList.get(i));
         }
-        System.out.println("Enter the term number you would like to remove: ");
+        letterArt.sectionLines();
+        if (currentSubject.getSubjectName().equals("MATH")) {
+            System.out.println("Enter the number of the problem you would like to remove: ");
+        } else {
+            System.out.println("Enter the number of the term you would like to remove: ");
+        }
         int num = input.nextInt();
         input.nextLine();
         String term = termList.get(num - 1);
         return term;
     }
 
+    // returns the users subject choice
     public int subjectChoice() {
         letterArt.sectionLines();
         System.out.println("Choose a Subject: ");
@@ -167,6 +201,7 @@ public class StudyReview {
         return choice - 1;
     }
 
+    // starts study "session" for a subject
     public void startStudy(int choice) {
         Subject currentSubject = subjectList.get(choice);
         letterArt.sectionLines();
@@ -175,7 +210,11 @@ public class StudyReview {
         ArrayList<String> termList = currentSubject.getTermList();
         for (int i = 0; i < termList.size(); i++) {
             letterArt.sectionLines();
-            System.out.println("What does this term mean: " + termList.get(i));
+            if(currentSubject.getSubjectName().equals("MATH")) {
+                System.out.println("What is the answer to: " + termList.get(i));
+            } else {
+                System.out.println("What does this term mean: " + termList.get(i));
+            }
             String answer = input.nextLine();
             if (checkAnswer(answer, termList.get(i), currentSubject) == true) {
                 System.out.println("CORRECT");
@@ -186,6 +225,7 @@ public class StudyReview {
         letterArt.printDone();
     }
 
+    // checks the user's answers against stored definitons
     public Boolean checkAnswer(String answer, String term, Subject currentSubject) {
         Boolean validAnswer = false;
         String definition = currentSubject.get(term);
@@ -197,6 +237,7 @@ public class StudyReview {
         }
     }
 
+    // adds all saved information from previous runs or modified files
     public void addAtStart() {
         String folderPath = "src\\Subjects";
         File folder = new File(folderPath);
@@ -209,6 +250,7 @@ public class StudyReview {
         }
     }
 
+    // adds topics to subjects from subject files and adds subjects to subject list
     public void retrieve(String subjectName) {
         Subject newSubject = new Subject(subjectName);
         try {

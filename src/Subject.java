@@ -1,3 +1,11 @@
+/*
+ * Author: Juliana Serrano
+ * Last Modified: 03/07/2025
+ * Lab 6: Hashing
+ * The Subject class makes a hash table for a Subject and its topics and provides methods to 
+ * add, remove and get information
+*/
+
 import java.util.ArrayList;
 import java.util.Objects;
 
@@ -34,9 +42,8 @@ public class Subject {
 
     public void add(String term, String definition) {
         int bucketIndex = getBucketIndex(term);
-        int hashCode = hashCode(term);
         Topic head = reviewItems[bucketIndex];
-        Topic newNode = new Topic(term, definition, hashCode);
+        Topic newNode = new Topic(term, definition);
 
         if (head != null) {
             while (head.next != null) {

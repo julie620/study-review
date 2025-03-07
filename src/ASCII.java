@@ -1,5 +1,11 @@
-// AVAILABLE LETTERS: A, D, E, I, M, N, O, R, S, T, U, Y
-// Letter and letter-space combos from previous project
+/*
+ * Author: Juliana Serrano
+ * Last Modified: 03/07/2025
+ * Lab 6: Hashing
+ * The ASCII class contains methods to create ASCII word art
+ * The letter and letter-space combos from previous project
+ * AVAILABLE LETTERS: A, D, E, I, M, N, O, R, S, T, U, Y
+*/
 
 public class ASCII {
 
