@@ -40,10 +40,6 @@ public class Subject {
 
         if (head != null) {
             while (head.next != null) {
-                if(head.getTerm() == term) {
-                    head.setDefinition(definition);
-                    return;
-                }
                 head = head.next;
             }
             head.next = newNode;
@@ -86,18 +82,23 @@ public class Subject {
         while(current != null) {
             head = current;
             current = current.next;
-            if (current.getTerm() == term) {
-                break;
+            if (head.getTerm() == term) {
+                size--;
+                head = null;
+                for (int i = 0; i < termList.size(); i ++) {
+                    if (termList.get(i).equals(term)) {
+                        termList.remove(i);
+                        break;
+                    }
+                }
+                return;
             }
         }
 
-        if(current == null && head == null) {
+        if(head == null) {
             System.out.println("Term Not Found");
             return;
         }
-
-        size--;
-        head.next = null;
     }
 
     public String get(String term) {
