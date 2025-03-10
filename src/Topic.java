@@ -8,13 +8,21 @@
 public class Topic {
     private String term;
     private String definition;
-    protected Topic next;
+    private Topic next;
 
     public Topic(String term, String definiton) {
         this.term = term;
         this.definition = definiton;
         next = null;
 
+    }
+
+    public void setNext(Topic next) {
+        this.next = next;
+    }
+
+    public Topic getNext() {
+        return next;
     }
 
     public String getTerm() {

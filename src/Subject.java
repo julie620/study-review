@@ -46,11 +46,11 @@ public class Subject {
         Topic newNode = new Topic(term, definition);
 
         if (head != null) {
-            while (head.next != null) {
-                head = head.next;
+            while (head.getNext() != null) {
+                head = head.getNext();
             }
-            head.next = newNode;
-            termList.add(head.next.getTerm());
+            head.setNext(newNode);
+            termList.add(head.getNext().getTerm());
         } else {
             reviewItems[bucketIndex] = newNode;
             termList.add(newNode.getTerm());
@@ -75,7 +75,7 @@ public class Subject {
                     current = temp[i];
                     while (current != null) {
                         add(current.getTerm(), current.getDefinition());
-                        current = current.next;
+                        current = current.getNext();
                     }
                 } 
             }
@@ -88,7 +88,7 @@ public class Subject {
 
         while(current != null) {
             head = current;
-            current = current.next;
+            current = current.getNext();
             if (head.getTerm() == term) {
                 size--;
                 head = null;
@@ -115,7 +115,7 @@ public class Subject {
 
         while(current != null) {
             head = current;
-            current = current.next;
+            current = current.getNext();
             if (head.getTerm() == term) {
                 return head.getDefinition();
             }
