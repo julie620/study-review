@@ -15,6 +15,3 @@ defintions that are stored in the table.
 * Currently no code handling the case for if you input the wrong data type
 * The file paths that are used are relative so if you run the jar file in the from the command line
    make sure to navigate to the project file/directory before running
-
-Juliana Serrano\
-03/07/2025
