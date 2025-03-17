@@ -1,4 +1,4 @@
-## Lab 6 - Hashing
+## Study Review
 
 This program allows you to review study material (terms and definitions) of different subjects
 
